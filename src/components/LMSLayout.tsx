@@ -65,7 +65,7 @@ export function LMSLayout({ children, userRole, user, onRoleSwitch }: LMSLayoutP
                 <div className="w-8 h-8 gradient-hero rounded-lg flex items-center justify-center">
                   <GraduationCap className="h-5 w-5 text-white" />
                 </div>
-                <span className="text-xl font-bold text-gradient-hero">SkillBloom</span>
+                <span className="text-xl font-bold text-gradient-hero">Ta'limHub</span>
               </div>
             </div>
 
