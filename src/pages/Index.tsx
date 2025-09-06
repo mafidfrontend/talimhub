@@ -8,10 +8,9 @@ const Index = () => {
 
   // Mock user data
   const mockStudent = {
-    name: "Emma Thompson",
-    email: "emma.thompson@email.com",
+    name: "Sardor Karimov",
+    email: "sardor.karimov@email.com",
     avatar: "/student-avatar.jpg",
-    coins: 1850,
     rank: 4,
     totalCourses: 12,
     completedCourses: 8,
@@ -19,8 +18,8 @@ const Index = () => {
   };
 
   const mockTeacher = {
-    name: "Dr. Sarah Wilson",
-    email: "sarah.wilson@university.edu",
+    name: "Malika Xolmatova",
+    email: "malika.xolmatova@university.edu",
     avatar: "/teacher-avatar.jpg",
   };
 

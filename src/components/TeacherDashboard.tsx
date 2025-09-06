@@ -96,25 +96,25 @@ export function TeacherDashboard({ user }: TeacherDashboardProps) {
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-2xl font-bold mb-2">
-              Welcome back, {user.name.split(' ')[0]}! 👨‍🏫
+              Xush kelibsiz, {user.name.split(' ')[0]}! 👨‍🏫
             </h1>
             <p className="text-blue-100 mb-4">
-              Your courses are making impact! Here's your teaching overview.
+              Sizning kurslaringiz ta'sir qilyapti! Mana o'qituvchilik ko'rsatkichlaringiz.
             </p>
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-1">
                 <BookOpen className="h-4 w-4" />
-                <span>{teacherStats.totalCourses} courses</span>
+                <span>{teacherStats.totalCourses} kurs</span>
               </div>
               <div className="flex items-center gap-1">
                 <Users className="h-4 w-4" />
-                <span>{teacherStats.totalStudents.toLocaleString()} students</span>
+                <span>{teacherStats.totalStudents.toLocaleString()} talaba</span>
               </div>
             </div>
           </div>
           <Button className="bg-white/20 text-white hover:bg-white/30 border-white/30">
             <PlusCircle className="h-4 w-4 mr-2" />
-            Create Course
+            Kurs Yaratish
           </Button>
         </div>
       </div>
@@ -122,31 +122,31 @@ export function TeacherDashboard({ user }: TeacherDashboardProps) {
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Courses"
+          title="Jami Kurslar"
           value={teacherStats.totalCourses}
           icon={BookOpen}
-          trend="+2 this month"
+          trend="+2 shu oy"
           className="text-primary"
         />
         <StatsCard
-          title="Total Students"
+          title="Jami Talabalar"
           value={teacherStats.totalStudents}
           icon={Users}
-          trend="+156 this week"
+          trend="+156 shu hafta"
           className="text-success"
         />
         <StatsCard
-          title="Monthly Revenue"
+          title="Oylik Daromad"
           value={`$${teacherStats.monthlyRevenue.toLocaleString()}`}
           icon={DollarSign}
-          trend="+12% vs last month"
+          trend="+12% o'tgan oyga nisbatan"
           className="text-warning"
         />
         <StatsCard
-          title="Avg. Completion"
+          title="O'rtacha Tugatish"
           value={`${teacherStats.completionRate}%`}
           icon={TrendingUp}
-          trend="+5% this month"
+          trend="+5% shu oy"
           className="text-secondary"
         />
       </div>
@@ -160,11 +160,11 @@ export function TeacherDashboard({ user }: TeacherDashboardProps) {
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
                   <BookOpen className="h-5 w-5 text-primary" />
-                  My Courses
+                  Mening Kurslarim
                 </CardTitle>
                 <Button size="sm">
                   <PlusCircle className="h-4 w-4 mr-2" />
-                  New Course
+                  Yangi Kurs
                 </Button>
               </div>
             </CardHeader>
@@ -182,15 +182,15 @@ export function TeacherDashboard({ user }: TeacherDashboardProps) {
                           <div className="flex items-center gap-4 text-xs text-muted-foreground">
                             <div className="flex items-center gap-1">
                               <Users className="h-3 w-3" />
-                              {course.students} students
+                              {course.students} talaba
                             </div>
                             <div className="flex items-center gap-1">
                               <DollarSign className="h-3 w-3" />
-                              ${course.revenue.toLocaleString()} revenue
+                              ${course.revenue.toLocaleString()} daromad
                             </div>
                             <div className="flex items-center gap-1">
                               <TrendingUp className="h-3 w-3" />
-                              {course.completionRate}% completion
+                              {course.completionRate}% tugatish
                             </div>
                           </div>
                         </div>
@@ -216,7 +216,7 @@ export function TeacherDashboard({ user }: TeacherDashboardProps) {
           {/* Quick Actions */}
           <Card>
             <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
+              <CardTitle>Tezkor Amallar</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

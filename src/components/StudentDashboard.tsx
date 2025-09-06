@@ -15,7 +15,10 @@ import {
   Coins,
   Star,
   Target,
-  Award
+  Award,
+  Users,
+  Bell,
+  MessageSquare
 } from "lucide-react";
 
 interface StudentDashboardProps {
@@ -23,7 +26,6 @@ interface StudentDashboardProps {
     name: string;
     email: string;
     avatar?: string;
-    coins: number;
     rank: number;
     totalCourses: number;
     completedCourses: number;
@@ -128,94 +130,77 @@ export function StudentDashboard({ user }: StudentDashboardProps) {
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-2xl font-bold mb-2">
-              Welcome back, {user.name.split(' ')[0]}! 🎓
+              Xush kelibsiz, {user.name.split(' ')[0]}! 🎓
             </h1>
             <p className="text-blue-100 mb-4">
-              You're doing great! Keep up the learning momentum.
+              O'qishni davom eting. Sizda ajoyib natijalar bor!
             </p>
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-1">
                 <Target className="h-4 w-4" />
-                <span>{user.studyStreak} day streak</span>
+                <span>{user.studyStreak} kunlik davomiylik</span>
               </div>
               <div className="flex items-center gap-1">
                 <Trophy className="h-4 w-4" />
-                <span>Rank #{user.rank}</span>
+                <span>O'rin #{user.rank}</span>
               </div>
             </div>
           </div>
           <div className="text-right">
-            <div className="flex items-center gap-2 bg-white/20 rounded-lg px-3 py-2">
-              <Coins className="h-5 w-5 text-yellow-300" />
-              <span className="font-bold text-lg">{user.coins.toLocaleString()}</span>
-            </div>
+            <div className="text-sm text-blue-100 mb-1">O'qish davomiyligi</div>
+            <div className="text-2xl font-bold">{user.studyStreak} kun</div>
           </div>
         </div>
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StatsCard
-          title="Total Courses"
+          title="Jami Kurslar"
           value={user.totalCourses}
           icon={BookOpen}
-          trend="+2 this month"
+          trend="+2 shu oy"
         />
         <StatsCard
-          title="Completed"
+          title="Tugatilgan"
           value={user.completedCourses}
           icon={Award}
-          trend={`${completionRate}% rate`}
+          trend={`${completionRate}% ko'rsatkich`}
           className="text-success"
         />
         <StatsCard
-          title="Study Streak"
-          value={user.studyStreak}
-          icon={Target}
-          trend="Personal best!"
+          title="O'qish Soatlari"
+          value="127"
+          icon={Clock}
+          trend="+5.2 shu hafta"
           className="text-warning"
-        />
-        <StatsCard
-          title="Total Coins"
-          value={user.coins}
-          icon={Coins}
-          trend="+125 this week"
-          className="text-primary"
         />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Continue Learning */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Play className="h-5 w-5 text-primary" />
-                Continue Learning
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {myCourses.filter(course => !course.isCompleted).map((course) => (
-                  <CourseCard
-                    key={course.id}
-                    course={course}
-                    userRole="student"
-                    onEnroll={() => {}}
-                  />
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          {/* Course Banner */}
+          <div className="rounded-xl gradient-primary p-6 text-white">
+            <h2 className="text-xl font-bold mb-2">📚 Yangi Kurslar</h2>
+            <p className="text-white/90 mb-4">Eng so'nggi va mashhur kurslar bilan bilimingizni oshiring</p>
+            <Button className="bg-white text-primary hover:bg-white/90">
+              Barcha Kurslar
+            </Button>
+          </div>
 
           {/* Available Courses */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BookOpen className="h-5 w-5 text-secondary" />
-                Discover New Courses
-              </CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2">
+                  <BookOpen className="h-5 w-5 text-primary" />
+                  Mavjud Kurslar
+                </CardTitle>
+                <Button size="sm" variant="outline">
+                  Barchasini Ko'rish
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -230,83 +215,102 @@ export function StudentDashboard({ user }: StudentDashboardProps) {
               </div>
             </CardContent>
           </Card>
+
+          {/* Teachers Section */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-primary" />
+                  Ustozlar
+                </CardTitle>
+                <div className="flex gap-2">
+                  <Button size="sm" variant="outline">Frontend</Button>
+                  <Button size="sm" variant="outline">Backend</Button>
+                  <Button size="sm" variant="outline">Design</Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  { name: "Sardor Xolmatov", specialty: "React Developer", experience: "5+ yil", rating: 4.9, courses: 12 },
+                  { name: "Malika Karimova", specialty: "UI/UX Designer", experience: "4+ yil", rating: 4.8, courses: 8 },
+                  { name: "Bobur Rahimov", specialty: "Node.js Developer", experience: "6+ yil", rating: 4.9, courses: 15 },
+                  { name: "Nilufar Tosheva", specialty: "Python Developer", experience: "3+ yil", rating: 4.7, courses: 10 }
+                ].map((teacher, index) => (
+                  <div key={index} className="p-4 border rounded-lg hover-lift">
+                    <div className="flex items-start gap-3">
+                      <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center">
+                        <Users className="h-6 w-6 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium mb-1">{teacher.name}</h4>
+                        <p className="text-sm text-muted-foreground mb-2">{teacher.specialty}</p>
+                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                          <span>⭐ {teacher.rating}</span>
+                          <span>{teacher.experience} tajriba</span>
+                          <span>{teacher.courses} kurs</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {/* Leaderboard */}
-          <LeaderboardCard currentUserRank={user.rank} />
-
-          {/* Recent Activity */}
+          {/* My Progress */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-success" />
-                Recent Activity
+                <Trophy className="h-5 w-5 text-primary" />
+                Mening Natijam
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 hover-lift">
-                  <div className="w-8 h-8 rounded-full gradient-success flex items-center justify-center flex-shrink-0">
-                    {activity.type === "course_complete" && <Award className="h-4 w-4 text-white" />}
-                    {activity.type === "lesson_complete" && <BookOpen className="h-4 w-4 text-white" />}
-                    {activity.type === "streak_milestone" && <Target className="h-4 w-4 text-white" />}
-                    {activity.type === "quiz_passed" && <Star className="h-4 w-4 text-white" />}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium">
-                        {activity.type === "course_complete" && "Course Completed!"}
-                        {activity.type === "lesson_complete" && "Lesson Finished"}
-                        {activity.type === "streak_milestone" && "Streak Milestone"}
-                        {activity.type === "quiz_passed" && "Quiz Passed"}
-                      </p>
-                      <Badge className="gradient-coins text-white border-0 coin-bounce">
-                        +{activity.coins}
-                      </Badge>
-                    </div>
-                    {activity.course && (
-                      <p className="text-xs text-muted-foreground truncate">
-                        {activity.course}
-                      </p>
-                    )}
-                    <p className="text-xs text-muted-foreground">{activity.time}</p>
-                  </div>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-primary mb-1">{user.studyStreak}</div>
+                  <p className="text-sm text-muted-foreground">kunlik o'qish</p>
                 </div>
-              ))}
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-success mb-1">{user.completedCourses}</div>
+                  <p className="text-sm text-muted-foreground">tugatilgan kurs</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-warning mb-1">127</div>
+                  <p className="text-sm text-muted-foreground">soat o'qildi</p>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
-          {/* Study Progress */}
+          {/* Announcements */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-primary" />
-                This Week's Progress
+                <Bell className="h-5 w-5 text-secondary" />
+                E'lonlar
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Daily Goal</span>
-                  <span className="text-primary font-medium">75%</span>
-                </div>
-                <Progress value={75} className="h-2" />
+            <CardContent className="space-y-3">
+              <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+                <p className="text-sm font-medium text-primary mb-1">Yangi React kursi!</p>
+                <p className="text-xs text-muted-foreground">Bugun yangi React kursi qo'shildi. Endi ro'yxatdan o'tishingiz mumkin.</p>
               </div>
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Weekly Goal</span>
-                  <span className="text-success font-medium">90%</span>
-                </div>
-                <Progress value={90} className="h-2" />
+              
+              <div className="p-3 rounded-lg bg-success/10 border border-success/20">
+                <p className="text-sm font-medium text-success mb-1">Chegirma!</p>
+                <p className="text-xs text-muted-foreground">Barcha kurslar uchun 30% chegirma. Faqat shu hafta!</p>
               </div>
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Course Completion</span>
-                  <span className="text-warning font-medium">{completionRate}%</span>
-                </div>
-                <Progress value={completionRate} className="h-2" />
+
+              <div className="p-3 rounded-lg bg-warning/10 border border-warning/20">
+                <p className="text-sm font-medium text-warning mb-1">Yangi ustoz!</p>
+                <p className="text-xs text-muted-foreground">Python bo'yicha yangi ustoz qo'shildi. Malika Karimova.</p>
               </div>
             </CardContent>
           </Card>

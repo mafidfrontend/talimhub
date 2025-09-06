@@ -30,7 +30,6 @@ interface LMSLayoutProps {
     name: string;
     email: string;
     avatar?: string;
-    coins?: number;
     rank?: number;
   };
   onRoleSwitch: (role: "student" | "teacher") => void;
@@ -41,16 +40,14 @@ export function LMSLayout({ children, userRole, user, onRoleSwitch }: LMSLayoutP
 
   const navItems = userRole === "student" 
     ? [
-        { icon: BookOpen, label: "My Courses", active: true },
-        { icon: Users, label: "Groups", active: false },
-        { icon: Trophy, label: "Leaderboard", active: false },
-        { icon: Coins, label: "Shop", active: false },
+        { icon: BookOpen, label: "Kurslarim", active: true },
+        { icon: Users, label: "Ustozlar", active: false },
       ]
     : [
-        { icon: GraduationCap, label: "Dashboard", active: true },
-        { icon: BookOpen, label: "My Courses", active: false },
-        { icon: Users, label: "Groups", active: false },
-        { icon: PlusCircle, label: "Create", active: false },
+        { icon: GraduationCap, label: "Boshqaruv paneli", active: true },
+        { icon: BookOpen, label: "Mening kurslarim", active: false },
+        { icon: Users, label: "Guruhlar", active: false },
+        { icon: PlusCircle, label: "Yaratish", active: false },
       ];
 
   return (
@@ -90,31 +87,22 @@ export function LMSLayout({ children, userRole, user, onRoleSwitch }: LMSLayoutP
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" className="hidden sm:flex">
-                    {userRole === "student" ? "Student" : "Teacher"}
+                    {userRole === "student" ? "Talaba" : "Ustoz"}
                     <ChevronDown className="h-4 w-4 ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem onClick={() => onRoleSwitch("student")}>
                     <User className="h-4 w-4 mr-2" />
-                    Student View
+                    Talaba Rejimi
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => onRoleSwitch("teacher")}>
                     <GraduationCap className="h-4 w-4 mr-2" />
-                    Teacher View
+                    Ustoz Rejimi
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Student Coins */}
-              {userRole === "student" && (
-                <div className="hidden sm:flex items-center space-x-2 px-3 py-1 rounded-full bg-warning/10 border border-warning/20">
-                  <Coins className="h-4 w-4 text-warning" />
-                  <span className="text-sm font-medium text-warning-foreground">
-                    {user.coins?.toLocaleString() || 0}
-                  </span>
-                </div>
-              )}
 
               {/* Notifications */}
               <Button variant="ghost" size="sm" className="relative">
@@ -156,23 +144,23 @@ export function LMSLayout({ children, userRole, user, onRoleSwitch }: LMSLayoutP
                     <>
                       <DropdownMenuItem disabled>
                         <Trophy className="mr-2 h-4 w-4 text-warning" />
-                        Rank #{user.rank}
+                        O'rin #{user.rank}
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                     </>
                   )}
                   <DropdownMenuItem>
                     <User className="mr-2 h-4 w-4" />
-                    Profile
+                    Profil
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Settings className="mr-2 h-4 w-4" />
-                    Settings
+                    Sozlamalar
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="text-destructive">
                     <LogOut className="mr-2 h-4 w-4" />
-                    Log out
+                    Chiqish
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
