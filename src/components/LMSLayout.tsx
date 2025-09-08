@@ -29,6 +29,7 @@ interface LMSLayoutProps {
     avatar?: string;
     rank?: number;
   };
+  
 }
 
 export function LMSLayout({ children, user }: LMSLayoutProps) {
