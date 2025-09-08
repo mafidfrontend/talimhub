@@ -1,24 +1,14 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { CourseCard } from "./CourseCard";
-import { LeaderboardCard } from "./LeaderboardCard";
 import { StatsCard } from "./StatsCard";
 import {
   BookOpen,
   Clock,
   Trophy,
-  TrendingUp,
-  Play,
-  Coins,
-  Star,
-  Target,
   Award,
-  Users,
   Bell,
-  MessageSquare
 } from "lucide-react";
 
 interface StudentDashboardProps {
@@ -34,7 +24,6 @@ interface StudentDashboardProps {
 }
 
 export function StudentDashboard({ user }: StudentDashboardProps) {
-  const [activeTab, setActiveTab] = useState("overview");
 
   // Mock data
   const myCourses = [
@@ -125,33 +114,6 @@ export function StudentDashboard({ user }: StudentDashboardProps) {
 
   return (
     <div className="space-y-6">
-      {/* Welcome Header */}
-      <div className="rounded-xl gradient-hero p-6 text-white animate-fade-in">
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="text-2xl font-bold mb-2">
-              Xush kelibsiz, {user.name.split(' ')[0]}! 🎓
-            </h1>
-            <p className="text-blue-100 mb-4">
-              O'qishni davom eting. Sizda ajoyib natijalar bor!
-            </p>
-            <div className="flex items-center gap-4 text-sm">
-              <div className="flex items-center gap-1">
-                <Target className="h-4 w-4" />
-                <span>{user.studyStreak} kunlik davomiylik</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Trophy className="h-4 w-4" />
-                <span>O'rin #{user.rank}</span>
-              </div>
-            </div>
-          </div>
-          <div className="text-right">
-            <div className="text-sm text-blue-100 mb-1">O'qish davomiyligi</div>
-            <div className="text-2xl font-bold">{user.studyStreak} kun</div>
-          </div>
-        </div>
-      </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -208,53 +170,8 @@ export function StudentDashboard({ user }: StudentDashboardProps) {
                   <CourseCard
                     key={course.id}
                     course={course}
-                    userRole="student"
                     onEnroll={(courseId) => console.log("Enroll in:", courseId)}
                   />
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Teachers Section */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-primary" />
-                  Ustozlar
-                </CardTitle>
-                <div className="flex gap-2">
-                  <Button size="sm" variant="outline">Frontend</Button>
-                  <Button size="sm" variant="outline">Backend</Button>
-                  <Button size="sm" variant="outline">Design</Button>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  { name: "Sardor Xolmatov", specialty: "React Developer", experience: "5+ yil", rating: 4.9, courses: 12 },
-                  { name: "Malika Karimova", specialty: "UI/UX Designer", experience: "4+ yil", rating: 4.8, courses: 8 },
-                  { name: "Bobur Rahimov", specialty: "Node.js Developer", experience: "6+ yil", rating: 4.9, courses: 15 },
-                  { name: "Nilufar Tosheva", specialty: "Python Developer", experience: "3+ yil", rating: 4.7, courses: 10 }
-                ].map((teacher, index) => (
-                  <div key={index} className="p-4 border rounded-lg hover-lift">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center">
-                        <Users className="h-6 w-6 text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-medium mb-1">{teacher.name}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{teacher.specialty}</p>
-                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                          <span>⭐ {teacher.rating}</span>
-                          <span>{teacher.experience} tajriba</span>
-                          <span>{teacher.courses} kurs</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 ))}
               </div>
             </CardContent>
@@ -306,11 +223,6 @@ export function StudentDashboard({ user }: StudentDashboardProps) {
               <div className="p-3 rounded-lg bg-success/10 border border-success/20">
                 <p className="text-sm font-medium text-success mb-1">Chegirma!</p>
                 <p className="text-xs text-muted-foreground">Barcha kurslar uchun 30% chegirma. Faqat shu hafta!</p>
-              </div>
-
-              <div className="p-3 rounded-lg bg-warning/10 border border-warning/20">
-                <p className="text-sm font-medium text-warning mb-1">Yangi ustoz!</p>
-                <p className="text-xs text-muted-foreground">Python bo'yicha yangi ustoz qo'shildi. Malika Karimova.</p>
               </div>
             </CardContent>
           </Card>

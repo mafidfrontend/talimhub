@@ -8,7 +8,6 @@ import {
   Star, 
   Play, 
   BookOpen, 
-  Coins,
   Lock,
   Trophy
 } from "lucide-react";
@@ -29,12 +28,10 @@ interface CourseCardProps {
     isPurchased?: boolean;
     isCompleted?: boolean;
   };
-  userRole: "student" | "teacher";
   onEnroll?: (courseId: string) => void;
-  onEdit?: (courseId: string) => void;
 }
 
-export function CourseCard({ course, userRole, onEnroll, onEdit }: CourseCardProps) {
+export function CourseCard({ course, onEnroll }: CourseCardProps) {
   const levelColors = {
     Beginner: "bg-success/10 text-success-foreground border-success/20",
     Intermediate: "bg-warning/10 text-warning-foreground border-warning/20", 
@@ -42,9 +39,7 @@ export function CourseCard({ course, userRole, onEnroll, onEdit }: CourseCardPro
   };
 
   const handleAction = () => {
-    if (userRole === "teacher" && onEdit) {
-      onEdit(course.id);
-    } else if (userRole === "student" && onEnroll) {
+    if (!course.isPurchased && onEnroll) {
       onEnroll(course.id);
     }
   };
@@ -82,11 +77,10 @@ export function CourseCard({ course, userRole, onEnroll, onEdit }: CourseCardPro
         </div>
 
         {/* Price Badge */}
-        {userRole === "student" && !course.isPurchased && (
+        {!course.isPurchased && (
           <div className="absolute top-3 right-3">
             <Badge className="gradient-coins text-white border-0 flex items-center gap-1">
-              <Coins className="h-3 w-3" />
-              {course.price}
+              {course.price} so'm
             </Badge>
           </div>
         )}
@@ -104,7 +98,7 @@ export function CourseCard({ course, userRole, onEnroll, onEdit }: CourseCardPro
         )}
 
         {/* Lock for Unpurchased */}
-        {userRole === "student" && !course.isPurchased && (
+        {!course.isPurchased && (
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
             <div className="bg-black/60 rounded-full p-3">
               <Lock className="h-5 w-5 text-white" />
@@ -154,31 +148,19 @@ export function CourseCard({ course, userRole, onEnroll, onEdit }: CourseCardPro
       </CardContent>
 
       <CardFooter className="p-4 pt-0">
-        {userRole === "student" ? (
-          course.isPurchased ? (
-            <Button 
-              className="w-full gradient-primary text-white hover-glow" 
-              onClick={handleAction}
-            >
-              {course.progress === 100 ? "Review Course" : "Continue Learning"}
-            </Button>
-          ) : (
-            <Button 
-              className="w-full" 
-              variant="outline"
-              onClick={handleAction}
-            >
-              <Coins className="h-4 w-4 mr-2" />
-              Enroll for {course.price} coins
-            </Button>
-          )
+        {course.isPurchased ? (
+          <Button 
+            className="w-full gradient-primary text-white hover-glow"
+          >
+            {course.progress === 100 ? "Review Course" : "Continue Learning"}
+          </Button>
         ) : (
           <Button 
             className="w-full" 
-            variant="outline" 
+            variant="outline"
             onClick={handleAction}
           >
-            Edit Course
+            Sotib olish {course.price} so'm
           </Button>
         )}
       </CardFooter>
